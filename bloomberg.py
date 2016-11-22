@@ -23,7 +23,9 @@ class BloombergSpider(CrawlSpider):
         article = "".join(content)
         article = remove_tags(remove_tags_with_content(article, ('script',)))
         url = response.url
-        date_regex = r"\d{4}-\d{2}-\d{2}"
+
+        # 2016-11-22T05:15:42.847Z
+        date_regex = r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z"
         match = re.search(date_regex, url)
         date = None
         if match:
