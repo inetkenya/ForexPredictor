@@ -13,6 +13,8 @@ class BloombergSpider(CrawlSpider):
     def parse_dir_contents(self, response):
         title_class = ".lede-headline__highlighted"
         title = response.selector.css(title_class).xpath("text()").extract()
+        if (title.length == 0):
+            title = response.selector.xpath('//main//h1//text()').extract()
         article_content_class = ".article-body__content"
         content = response.selector.css(article_content_class).xpath('.//p').extract()
 
@@ -24,7 +26,7 @@ class BloombergSpider(CrawlSpider):
         article = remove_tags(remove_tags_with_content(article, ('script',)))
         url = response.url
 
-        # 2016-11-22T05:15:42.847Z
+        # [(created at) 2016-11-22T05:15:42.847Z, 2016-11-22T07:15:42.847Z (updated at)] 
         date = response.selector.xpath('//main//time//@datetime').extract()
 
 
