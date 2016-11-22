@@ -13,7 +13,7 @@ class BloombergSpider(CrawlSpider):
     def parse_dir_contents(self, response):
         title_class = ".lede-headline__highlighted"
         title = response.selector.css(title_class).xpath("text()").extract()
-        if (title.length == 0):
+        if (len(title) == 0):
             title = response.selector.xpath('//main//h1//text()').extract()
         article_content_class = ".article-body__content"
         content = response.selector.css(article_content_class).xpath('.//p').extract()
