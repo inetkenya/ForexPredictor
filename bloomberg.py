@@ -25,11 +25,7 @@ class BloombergSpider(CrawlSpider):
         url = response.url
 
         # 2016-11-22T05:15:42.847Z
-        date_regex = r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z"
-        match = re.search(date_regex, url)
-        date = None
-        if match:
-            date = match.group(0)
+        date = response.selector.xpath('//main//time//@datetime').extract()
 
 
         yield {
